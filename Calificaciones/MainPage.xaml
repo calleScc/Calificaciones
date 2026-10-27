@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Calificaciones.MainPage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0.6,1">
+            <GradientStop Color="#070B1A" Offset="0.0" />
+            <GradientStop Color="#111B4A" Offset="0.55" />
+            <GradientStop Color="#2A1262" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="#1AFFFFFF" />
+            <Setter Property="Stroke" Value="#2EFFFFFF" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 28" />
+            <Setter Property="Padding" Value="18" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style x:Key="Field" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="#14FFFFFF" />
+            <Setter Property="Stroke" Value="#22FFFFFF" />
+            <Setter Property="StrokeThickness" Value="1.2" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="HeightRequest" Value="56" />
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="PlaceholderColor" Value="#7C89AA" />
+            <Setter Property="Keyboard" Value="Numeric" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="Caption" TargetType="Label">
+            <Setter Property="TextColor" Value="#9FB0D6" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="CharacterSpacing" Value="1.5" />
+        </Style>
+
+        <Style x:Key="Chip" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="#1FFFFFFF" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+            <Setter Property="Padding" Value="10,4" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <!-- Orbes de luz flotantes (fondo animado) -->
+        <Ellipse x:Name="orb1" WidthRequest="320" HeightRequest="320" InputTransparent="True"
+                 HorizontalOptions="Start" VerticalOptions="Start" Margin="-130,-90,0,0">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#908B5CF6" Offset="0" />
+                    <GradientStop Color="#008B5CF6" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse x:Name="orb2" WidthRequest="300" HeightRequest="300" InputTransparent="True"
+                 HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,-140,0">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#7006B6D4" Offset="0" />
+                    <GradientStop Color="#0006B6D4" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse x:Name="orb3" WidthRequest="280" HeightRequest="280" InputTransparent="True"
+                 HorizontalOptions="Start" VerticalOptions="End" Margin="-120,0,0,-60">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+                    <GradientStop Color="#70EC4899" Offset="0" />
+                    <GradientStop Color="#00EC4899" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <ScrollView x:Name="scroll">
+            <VerticalStackLayout Padding="20,48,20,36" Spacing="16">
+
+                <!-- Encabezado -->
+                <HorizontalStackLayout x:Name="header" Opacity="0" Spacing="14">
+                    <Border x:Name="badge" WidthRequest="56" HeightRequest="56"
+                            StrokeThickness="0" StrokeShape="RoundRectangle 20">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#22D3EE" Offset="0" />
+                                <GradientStop Color="#8B5CF6" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Label Text="IS" TextColor="White" FontSize="22" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="0">
+                        <Label Text="INSTITUTO SUDAMERICANO" Style="{StaticResource Caption}" />
+                        <Label Text="Calificaciones" TextColor="White" FontSize="30" FontAttributes="Bold" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <!-- Estudiante -->
+                <Border x:Name="cardEstudiante" Style="{StaticResource Card}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                        <Border x:Name="avatar" WidthRequest="52" HeightRequest="52"
+                                StrokeThickness="0" StrokeShape="RoundRectangle 26"
+                                VerticalOptions="Center">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#F472B6" Offset="0" />
+                                    <GradientStop Color="#8B5CF6" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Label x:Name="lblInicial" Text="?" TextColor="White" FontSize="22"
+                                   FontAttributes="Bold" HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="ESTUDIANTE" Style="{StaticResource Caption}" />
+                            <Border Style="{StaticResource Field}">
+                                <Grid>
+                                    <Picker x:Name="pickerEstudiante"
+                                            TextColor="White" FontSize="18"
+                                            BackgroundColor="Transparent" VerticalOptions="Center"
+                                            SelectedIndexChanged="OnEstudianteChanged" />
+                                    <Label x:Name="lblPlaceholder" Text="Selecciona un estudiante"
+                                           TextColor="#7C89AA" FontSize="18" VerticalOptions="Center"
+                                           InputTransparent="True" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Parcial 1 -->
+                <Border x:Name="cardP1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="8">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border WidthRequest="34" HeightRequest="34" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12" BackgroundColor="#6366F1">
+                                <Label Text="1" TextColor="White" FontAttributes="Bold" FontSize="16"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Grid.Column="1" Text="Primer parcial" TextColor="White"
+                                   FontSize="20" FontAttributes="Bold" VerticalOptions="Center" />
+                            <Label x:Name="lblP1" Grid.Column="2" Text="--" TextColor="#FDE047"
+                                   FontSize="22" FontAttributes="Bold" VerticalOptions="Center" />
+                        </Grid>
+
+                        <ProgressBar x:Name="barP1" Progress="0" ProgressColor="#FDE047"
+                                     BackgroundColor="#22FFFFFF" />
+
+                        <HorizontalStackLayout Spacing="8">
+                            <Border Style="{StaticResource Chip}">
+                                <Label Text="Seguimiento x 0.3" TextColor="#C7D2FE" FontSize="12" />
+                            </Border>
+                            <Border Style="{StaticResource Chip}">
+                                <Label Text="Examen x 0.2" TextColor="#C7D2FE" FontSize="12" />
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <Label Text="Nota Seguimiento 1 (0.1 - 10)" Style="{StaticResource Caption}" />
+                        <Border Style="{StaticResource Field}">
+                            <Entry x:Name="entSeg1" Placeholder="Ej: 8.5" TextChanged="OnNotaChanged"
+                                   Focused="OnFocused" Unfocused="OnUnfocused" />
+                        </Border>
+                        <Label Text="Examen 1 (0.1 - 10)" Style="{StaticResource Caption}" />
+                        <Border Style="{StaticResource Field}">
+                            <Entry x:Name="entEx1" Placeholder="Ej: 7" TextChanged="OnNotaChanged"
+                                   Focused="OnFocused" Unfocused="OnUnfocused" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Parcial 2 -->
+                <Border x:Name="cardP2" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="8">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border WidthRequest="34" HeightRequest="34" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12" BackgroundColor="#06B6D4">
+                                <Label Text="2" TextColor="White" FontAttributes="Bold" FontSize="16"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Grid.Column="1" Text="Segundo parcial" TextColor="White"
+                                   FontSize="20" FontAttributes="Bold" VerticalOptions="Center" />
+                            <Label x:Name="lblP2" Grid.Column="2" Text="--" TextColor="#67E8F9"
+                                   FontSize="22" FontAttributes="Bold" VerticalOptions="Center" />
+                        </Grid>
+
+                        <ProgressBar x:Name="barP2" Progress="0" ProgressColor="#67E8F9"
+                                     BackgroundColor="#22FFFFFF" />
+
+                        <HorizontalStackLayout Spacing="8">
+                            <Border Style="{StaticResource Chip}">
+                                <Label Text="Seguimiento x 0.3" TextColor="#C7D2FE" FontSize="12" />
+                            </Border>
+                            <Border Style="{StaticResource Chip}">
+                                <Label Text="Examen x 0.2" TextColor="#C7D2FE" FontSize="12" />
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <Label Text="Nota Seguimiento 2 (0.1 - 10)" Style="{StaticResource Caption}" />
+                        <Border Style="{StaticResource Field}">
+                            <Entry x:Name="entSeg2" Placeholder="Ej: 9" TextChanged="OnNotaChanged"
+                                   Focused="OnFocused" Unfocused="OnUnfocused" />
+                        </Border>
+                        <Label Text="Examen 2 (0.1 - 10)" Style="{StaticResource Caption}" />
+                        <Border Style="{StaticResource Field}">
+                            <Entry x:Name="entEx2" Placeholder="Ej: 8" TextChanged="OnNotaChanged"
+                                   Focused="OnFocused" Unfocused="OnUnfocused" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Fecha -->
+                <Border x:Name="cardFecha" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="FECHA" Style="{StaticResource Caption}" />
+                        <Border Style="{StaticResource Field}">
+                            <DatePicker x:Name="dpFecha" Format="dd/MM/yyyy" TextColor="White"
+                                        FontSize="18" BackgroundColor="Transparent"
+                                        VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Boton -->
+                <Button x:Name="btnCalcular" Text="CALCULAR NOTAS DEL ESTUDIANTE"
+                        Opacity="0" FontAttributes="Bold" FontSize="15" TextColor="White"
+                        CornerRadius="30" HeightRequest="60" CharacterSpacing="1"
+                        Clicked="OnCalcularClicked"
+                        Pressed="OnBtnPressed" Released="OnBtnReleased">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#06B6D4" Offset="0" />
+                            <GradientStop Color="#6366F1" Offset="0.55" />
+                            <GradientStop Color="#C026D3" Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <!-- Resultado -->
+                <Border x:Name="cardResultado" Style="{StaticResource Card}" IsVisible="False">
+                    <VerticalStackLayout Spacing="14" HorizontalOptions="Center">
+                        <Label Text="NOTA FINAL" Style="{StaticResource Caption}"
+                               HorizontalOptions="Center" />
+
+                        <Grid WidthRequest="220" HeightRequest="220" HorizontalOptions="Center">
+                            <GraphicsView x:Name="ringView" />
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center"
+                                                 Spacing="0" InputTransparent="True">
+                                <Label x:Name="lblFinal" Text="0.00" TextColor="White" FontSize="52"
+                                       FontAttributes="Bold" HorizontalOptions="Center" />
+                                <Label Text="sobre 10" TextColor="#9FB0D6" FontSize="13"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border x:Name="chipEstado" StrokeThickness="1.5" StrokeShape="RoundRectangle 20"
+                                Padding="22,8" HorizontalOptions="Center">
+                            <Label x:Name="lblEstado" FontSize="18" FontAttributes="Bold"
+                                   CharacterSpacing="2" HorizontalOptions="Center" />
+                        </Border>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <Border Style="{StaticResource Chip}" Padding="12,10">
+                                <VerticalStackLayout>
+                                    <Label Text="Parcial 1" TextColor="#9FB0D6" FontSize="12"
+                                           HorizontalOptions="Center" />
+                                    <Label x:Name="lblResP1" TextColor="White" FontSize="20"
+                                           FontAttributes="Bold" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border Grid.Column="1" Style="{StaticResource Chip}" Padding="12,10">
+                                <VerticalStackLayout>
+                                    <Label Text="Parcial 2" TextColor="#9FB0D6" FontSize="12"
+                                           HorizontalOptions="Center" />
+                                    <Label x:Name="lblResP2" TextColor="White" FontSize="20"
+                                           FontAttributes="Bold" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
